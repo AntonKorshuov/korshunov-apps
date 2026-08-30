@@ -37,17 +37,41 @@
         header {
             width: 100%;
             max-width: 1100px;
-            padding: 24px 20px;
+            padding: 20px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--card-border);
+            flex-wrap: nowrap;
+            gap: 16px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: nowrap;
+        }
+
+        .header-logo {
+            height: 42px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .header-brand h1 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            color: var(--text-main);
         }
 
         .controls-group {
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-shrink: 0;
         }
 
         select {
@@ -66,61 +90,26 @@
             border-color: var(--accent-blue);
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 50px 20px 30px 20px;
-            max-width: 950px;
-            width: 100%;
-        }
-
-        .hero-title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 16px;
-            flex-wrap: nowrap;
-        }
-
-        .hero-logo {
-            height: 52px;
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            white-space: nowrap;
-            color: var(--text-main);
-        }
-
-        @media (max-width: 768px) {
-            .hero-title-container {
+        @media (max-width: 640px) {
+            header {
                 flex-direction: column;
-                gap: 10px;
+                align-items: flex-start;
+                gap: 12px;
             }
-            .hero h1 {
+            .header-brand h1 {
                 white-space: normal;
-                font-size: 1.7rem;
+                font-size: 1.15rem;
             }
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-sub);
-            line-height: 1.6;
-            max-width: 750px;
-            margin: 0 auto;
+            .controls-group {
+                align-self: flex-end;
+            }
         }
 
         /* Main Content Grid */
         main {
             width: 100%;
             max-width: 1100px;
-            padding: 20px;
+            padding: 30px 20px 20px 20px;
             flex: 1;
         }
 
@@ -257,6 +246,11 @@
 <body>
 
     <header>
+        <div class="header-brand">
+            <img src="developer_ak_logo.png" class="header-logo" alt="Anton Korshunov Logo">
+            <h1 data-i18n="hero_title">Разработка программного обеспечения</h1>
+        </div>
+
         <div class="controls-group">
             <!-- Language Select -->
             <select id="lang-select" onchange="setLang(this.value)">
@@ -267,13 +261,6 @@
             </select>
         </div>
     </header>
-
-    <div class="hero">
-        <div class="hero-title-container">
-            <img src="developer_ak_logo.png" class="hero-logo" alt="Anton Korshunov Logo">
-            <h1 data-i18n="hero_title">Разработка программного обеспечения</h1>
-        </div>
-    </div>
 
     <main>
         <h2 class="section-title">🚀 <span data-i18n="apps_title">Приложения</span></h2>
@@ -290,7 +277,7 @@
                         </div>
                     </div>
                     <p class="app-desc" data-i18n="navi_desc">
-                        Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и светлую/тёмную темы.
+                        Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и удобный дизайн.
                     </p>
                 </div>
 
@@ -336,7 +323,6 @@
         const TRANSLATIONS = {
             ru: {
                 hero_title: 'Разработка программного обеспечения',
-                hero_subtitle: 'Персональный каталог навигационных и логистических приложений для бизнеса и ежедневных задач.',
                 apps_title: 'Приложения',
                 navi_desc: 'Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и удобный дизайн.',
                 download_apk: 'Скачать APK (Android)',
@@ -348,7 +334,6 @@
             },
             de: {
                 hero_title: 'Softwareentwicklung',
-                hero_subtitle: 'Persönlicher Katalog von Navigations- und Logistikanwendungen für Unternehmen.',
                 apps_title: 'Anwendungen',
                 navi_desc: 'Intelligentes Logistik-Navigationssystem mit 2-Opt-Algorithmus zur Routenoptimierung. Unterstützt Excel-Import, Mehrsprachigkeit und modernes Design.',
                 download_apk: 'APK herunterladen (Android)',
@@ -360,7 +345,6 @@
             },
             en: {
                 hero_title: 'Software Development',
-                hero_subtitle: 'Personal portfolio of navigation and logistics applications for business tasks.',
                 apps_title: 'Applications',
                 navi_desc: 'Smart logistics navigation system with 2-Opt route optimization algorithm. Supports Excel import, multi-language support, and sleek design.',
                 download_apk: 'Download APK (Android)',
@@ -372,7 +356,6 @@
             },
             pl: {
                 hero_title: 'Tworzenie Oprogramowania',
-                hero_subtitle: 'Osobisty katalog aplikacji nawigacyjnych i logistycznych dla biznesu.',
                 apps_title: 'Aplikacje',
                 navi_desc: 'Inteligentny system nawigacji logistycznej z algorytmem optymalizacji tras 2-Opt. Obsługuje import z pliku Excel, wielojęzyczność i elegancki wygląd.',
                 download_apk: 'Pobierz plik APK (Android)',
