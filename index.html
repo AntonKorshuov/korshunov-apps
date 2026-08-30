@@ -54,7 +54,7 @@
         }
 
         .header-logo {
-            height: 42px;
+            height: 84px;
             object-fit: contain;
             flex-shrink: 0;
         }
@@ -255,8 +255,8 @@
             <!-- Language Select -->
             <select id="lang-select" onchange="setLang(this.value)">
                 <option value="de">DE</option>
-                <option value="en">EN</option>
-                <option value="ru" selected>RU</option>
+                <option value="en" selected>EN</option>
+                <option value="ru">RU</option>
                 <option value="pl">PL</option>
             </select>
         </div>
@@ -367,16 +367,19 @@
             }
         };
 
-        let currentLang = 'ru';
+        let currentLang = 'en';
 
         function setLang(lang) {
             currentLang = lang;
-            const t = TRANSLATIONS[lang] || TRANSLATIONS.ru;
+            const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) el.textContent = t[key];
             });
         }
+
+        // Initialize English by default on load
+        setLang('en');
     </script>
 </body>
 </html>
