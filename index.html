@@ -59,12 +59,28 @@
             flex-shrink: 0;
         }
 
+        .header-title-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .header-brand h1 {
             font-size: 1.35rem;
             font-weight: 800;
             letter-spacing: -0.3px;
             white-space: nowrap;
             color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .header-author {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            margin-top: 4px;
         }
 
         .controls-group {
@@ -248,7 +264,10 @@
     <header>
         <div class="header-brand">
             <img src="developer_ak_logo.png" class="header-logo" alt="Anton Korshunov Logo">
-            <h1 data-i18n="hero_title">Разработка программного обеспечения</h1>
+            <div class="header-title-container">
+                <h1 data-i18n="hero_title">Software Development</h1>
+                <div class="header-author">ANTON KORSHUNOV</div>
+            </div>
         </div>
 
         <div class="controls-group">
