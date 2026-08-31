@@ -161,6 +161,13 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.2s, border-color 0.2s;
+            height: 100%;
+        }
+
+        .app-card-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .app-card:hover {
@@ -211,6 +218,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: auto;
         }
 
         .btn-primary {
@@ -293,7 +301,7 @@
         <div class="apps-grid">
             <!-- APP 1: NAVI -->
             <div class="app-card">
-                <div>
+                <div class="app-card-content">
                     <div class="app-header">
                         <img src="logo_transparent.png" class="app-icon" alt="NAVI Icon">
                         <div class="app-title-group">
@@ -318,7 +326,7 @@
 
             <!-- APP 2: AK MEMO -->
             <div class="app-card">
-                <div>
+                <div class="app-card-content">
                     <div class="app-header">
                         <div class="app-icon" style="display:flex; align-items:center; justify-content:center; font-size:1.8rem; background:rgba(208,188,255,0.2);">📝</div>
                         <div class="app-title-group">
@@ -344,7 +352,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Anton Korshunov. <span data-i18n="footer_rights">Все права защищены.</span></p>
+        <p>&copy; 2025 Anton Korshunov. <span data-i18n="footer_rights">Все права защищены.</span></p>
     </footer>
 
     <script>
