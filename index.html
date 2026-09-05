@@ -161,13 +161,6 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.2s, border-color 0.2s;
-            height: 100%;
-        }
-
-        .app-card-content {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
         }
 
         .app-card:hover {
@@ -218,7 +211,6 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: auto;
         }
 
         .btn-primary {
@@ -301,12 +293,12 @@
         <div class="apps-grid">
             <!-- APP 1: NAVI -->
             <div class="app-card">
-                <div class="app-card-content">
+                <div>
                     <div class="app-header">
                         <img src="logo_transparent.png" class="app-icon" alt="NAVI Icon">
                         <div class="app-title-group">
                             <h3>NAVI Navigation</h3>
-                            <span class="app-badge">v2.139 • Active</span>
+                            <span class="app-badge">v2.4 • Active</span>
                         </div>
                     </div>
                     <p class="app-desc" data-i18n="navi_desc">
@@ -315,7 +307,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <a href="NAVI%20v2.139.apk" download="NAVI v2.139.apk" download="NAVI v2.138.apk" download="NAVI v2.137.apk" download="NAVI v2.136.apk" download="NAVI v2.135.apk" download="NAVI v2.134.apk" download="NAVI v2.133.apk" download="NAVI v2.132.apk" download="NAVI v2.131.apk" download="NAVI v2.130.apk" download="NAVI v2.126.apk" download="NAVI v2.125.apk" download="NAVI v2.124.apk" download="NAVI v2.123.apk" download="NAVI v2.122.apk" download="NAVI v2.121.apk" download="NAVI v2.120.apk" download="NAVI v2.119.apk" download="NAVI v2.118.apk" download="NAVI v2.117.apk" download="NAVI v2.116.apk" download="NAVI v2.115.apk" download="NAVI v2.114.apk" download="NAVI v2.113.apk" download="NAVI v2.112.apk" download="NAVI v2.111.apk" download="NAVI v2.110.apk" download="NAVI v2.109.apk" download="NAVI v2.108.apk" download="NAVI v2.107.apk" download="NAVI v2.106.apk" download="NAVI v2.105.apk" class="btn-primary">
+                    <a href="NAVI.apk" class="btn-primary" download>
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                     <a href="https://klockenhoff-navi-server.onrender.com/" target="_blank" class="btn-secondary">
@@ -324,26 +316,23 @@
                 </div>
             </div>
 
-            <!-- APP 2: AK MEMO -->
+            <!-- APP 2: AK USTIK -->
             <div class="app-card">
-                <div class="app-card-content">
+                <div>
                     <div class="app-header">
-                        <div class="app-icon" style="display:flex; align-items:center; justify-content:center; font-size:1.8rem; background:rgba(208,188,255,0.2);">📝</div>
+                        <div class="app-icon" style="display:flex; align-items:center; justify-content:center; font-size:1.8rem; background:#121212; color:#ffffff; border-radius:12px;">🎵</div>
                         <div class="app-title-group">
-                            <h3>AK MEMO</h3>
-                            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">
-                                <span class="app-badge" style="background:rgba(208,188,255,0.2); color:#6750a4;" data-i18n="badge_active">v1.101 • Active</span>
-                                <span class="app-badge" style="background:rgba(255, 183, 77, 0.2); color:#b78103;" data-i18n="badge_in_dev">В разработке</span>
-                            </div>
+                            <h3>AK USTIK</h3>
+                            <span class="app-badge" style="background:rgba(0,0,0,0.06); color:var(--text-main);">v1.0 • Android & Auto</span>
                         </div>
                     </div>
-                    <p class="app-desc" data-i18n="todo_desc">
-                        Современное Android-приложение для заметок, списков дел и точных напоминаний. Выполнено на Jetpack Compose с поддержкой категорий, поиском и оффлайн-базой данных Room.
+                    <p class="app-desc" data-i18n="ustik_desc">
+                        Современный оффлайн музыкальный плеер в строгом черно-белом дизайне. Поддерживает гибкое управление плейлистами, умную фильтрацию медиатеки и интеграцию с Android Auto.
                     </p>
                 </div>
 
                 <div class="btn-group">
-                    <a href="MEMO v1.101.apk" class="btn-primary" download="MEMO v1.101.apk">
+                    <a href="AK_USTIK_v1.0.apk" class="btn-primary" download style="background: #0f172a;">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                 </div>
@@ -352,7 +341,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Anton Korshunov. <span data-i18n="footer_rights">Все права защищены.</span></p>
+        <p>&copy; 2026 Anton Korshunov. <span data-i18n="footer_rights">Все права защищены.</span></p>
     </footer>
 
     <script>
@@ -361,44 +350,48 @@
                 hero_title: 'Разработка программного обеспечения',
                 apps_title: 'Приложения',
                 navi_desc: 'Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и удобный дизайн.',
+                ustik_desc: 'Современный оффлайн музыкальный плеер в строгом черно-белом дизайне. Поддерживает гибкое управление плейлистами, умную фильтрацию медиатеки и интеграцию с Android Auto.',
                 download_apk: 'Скачать APK (Android)',
                 open_web: 'Открыть веб-версию',
-                badge_active: 'v1.101 • Активно',
                 badge_in_dev: 'В разработке',
-                todo_desc: 'Современное Android-приложение для заметок, списков дел и точных напоминаний. Выполнено на Jetpack Compose с поддержкой категорий, поиском и оффлайн-базой данных Room.',
+                next_app_desc: 'Новый логистический модуль для расширенного планирования поставок и отчетов. Скоро будет доступен для скачивания.',
+                coming_soon: 'Скоро анонс',
                 footer_rights: 'Все права защищены.'
             },
             de: {
                 hero_title: 'Softwareentwicklung',
                 apps_title: 'Anwendungen',
                 navi_desc: 'Intelligentes Logistik-Navigationssystem mit 2-Opt-Algorithmus zur Routenoptimierung. Unterstützt Excel-Import, Mehrsprachigkeit und modernes Design.',
+                ustik_desc: 'Moderner Offline-Musikplayer im eleganten Schwarz-Weiß-Design. Bietet flexible Playlist-Verwaltung, intelligente Medienbibliothek-Filterung und vollständige Android Auto-Integration.',
                 download_apk: 'APK herunterladen (Android)',
                 open_web: 'Webversion öffnen',
-                badge_active: 'v1.101 • Aktiv',
                 badge_in_dev: 'In Entwicklung',
-                todo_desc: 'Moderne Android-App für Notizen, Aufgabenlisten und präzise Erinnerungen. Entwickelt mit Jetpack Compose, Kategorien, Suche und Room-Offline-Datenbank.',
+                next_app_desc: 'Neues Logistikmodul für erweiterte Lieferplanung und Berichte. Demnächst verfügbar.',
+                coming_soon: 'Demnächst verfügbar',
                 footer_rights: 'Alle Rechte vorbehalten.'
             },
             en: {
                 hero_title: 'Software Development',
                 apps_title: 'Applications',
                 navi_desc: 'Smart logistics navigation system with 2-Opt route optimization algorithm. Supports Excel import, multi-language support, and sleek design.',
+                ustik_desc: 'Modern offline music player with a sleek monochrome dark design. Features flexible playlist management, smart media library filtering, and full Android Auto integration.',
                 download_apk: 'Download APK (Android)',
                 open_web: 'Open Web Version',
-                badge_active: 'v1.101 • Active',
                 badge_in_dev: 'In Development',
-                todo_desc: 'Modern Android application for notes, to-do lists, and precise task reminders. Built with Jetpack Compose, category organization, search, and offline Room database.',
+                next_app_desc: 'New logistics module for advanced delivery planning and reports. Coming soon.',
+                coming_soon: 'Coming Soon',
                 footer_rights: 'All rights reserved.'
             },
             pl: {
                 hero_title: 'Tworzenie Oprogramowania',
                 apps_title: 'Aplikacje',
                 navi_desc: 'Inteligentny system nawigacji logistycznej z algorytmem optymalizacji tras 2-Opt. Obsługuje import z pliku Excel, wielojęzyczność i elegancki wygląd.',
+                ustik_desc: 'Nowoczesny odtwarzacz muzyczny offline w eleganckim czarno-białym stylu. Oferuje elastyczne zarządzanie listami odtwarzania, inteligentne filtrowanie biblioteki oraz integrację z Android Auto.',
                 download_apk: 'Pobierz plik APK (Android)',
                 open_web: 'Otwórz wersję internetową',
-                badge_active: 'v1.101 • Aktywny',
                 badge_in_dev: 'W przygotowaniu',
-                todo_desc: 'Nowoczesna aplikacja dla systemu Android do notatek, list zadań i precyzyjnych przypomnień. Stworzona w Jetpack Compose z kategoryzacją, wyszukiwaniem i bazą danych Room.',
+                next_app_desc: 'Nowy moduł logistyczny do zaawansowanego planowania dostaw i raportów. Wkrótce dostępny.',
+                coming_soon: 'Wkrótce',
                 footer_rights: 'Wszelkie prawa zastrzeżone.'
             }
         };
