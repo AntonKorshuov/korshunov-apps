@@ -1,0 +1,16 @@
+{
+  "short_name": "AKWAY",
+  "name": "AKWAY",
+  "icons": [
+    {
+      "src": "logo_transparent.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "./",
+  "background_color": "#1e88e5",
+  "theme_color": "#1e88e5",
+  "display": "standalone",
+  "orientation": "portrait"
+}
