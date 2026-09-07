@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKVIO Converter - Web Version</title>
+    <link rel="icon" type="image/png" href="akvio_logo.png">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --accent-blue: #0284c7;
+            --accent-green: #16a34a;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-logo {
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .header-brand h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .header-author {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-sub);
+        }
+
+        .back-btn {
+            background: #fff8d6;
+            color: #8c6800;
+            border: 1px solid #ffe380;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #fff1b8;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1000px;
+            padding: 30px 20px;
+            flex: 1;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--card-border);
+            padding-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+        }
+
+        .dropzone {
+            border: 2px dashed var(--accent-blue);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            background: rgba(2, 132, 199, 0.02);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dropzone:hover {
+            background: rgba(2, 132, 199, 0.06);
+        }
+
+        .form-group {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        select, input[type="number"], input[type="range"] {
+            padding: 10px 14px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .btn-action {
+            background: var(--accent-blue);
+            color: #ffffff;
+            border: none;
+            font-weight: 600;
+            padding: 14px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .result-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .btn-download {
+            background: var(--accent-green);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        footer {
+            width: 100%;
+            max-width: 1000px;
+            padding: 30px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-brand">
+            <img src="akvio_logo.png" class="header-logo" alt="AKVIO Logo">
+            <div>
+                <h1>AKVIO Converter</h1>
+                <div class="header-author">ONLINE WEB VERSION</div>
+            </div>
+        </div>
+        <a href="index.html" class="back-btn">← На главную</a>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('media')">🎵 Видео ➔ Аудио (MP4 в MP3/WAV)</button>
+            <button class="tab-btn" onclick="switchTab('image')">🖼️ Изображения (PNG/JPG/WEBP)</button>
+            <button class="tab-btn" onclick="switchTab('units')">📊 Конвертер Единиц Памяти</button>
+        </div>
+
+        <!-- TAB 1: MEDIA CONVERTER -->
+        <div id="tab-media" class="tab-content active">
+            <div class="card">
+                <h2>Конвертер Видео в Аудио (MP4 ➔ MP3 / WAV)</h2>
+                <div class="dropzone" onclick="document.getElementById('videoInput').click()">
+                    <p id="videoFileName">📁 Нажмите или перетащите MP4 / видеофайл сюда</p>
+                    <input type="file" id="videoInput" accept="video/*" style="display:none" onchange="handleFileSelect('video')">
+                </div>
+
+                <div class="form-group">
+                    <label>Выберите целевой формат аудио:</label>
+                    <select id="audioFormatSelect">
+                        <option value="wav">WAV (Uncompressed PCM Audio)</option>
+                        <option value="mp3">MP3 / Audio Container</option>
+                    </select>
+                </div>
+
+                <button class="btn-action" onclick="convertMedia()">🚀 Начать конвертацию</button>
+
+                <div id="mediaProgress" class="progress-bar">
+                    <div id="mediaProgressFill" class="progress-fill"></div>
+                </div>
+
+                <div id="mediaResult" class="result-box">
+                    <h3>✅ Аудио файл успешно создан!</h3>
+                    <p id="mediaResultText"></p>
+                    <a id="mediaDownloadBtn" href="#" download="" class="btn-download">💾 Скачать Аудиофайл</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: IMAGE CONVERTER -->
+        <div id="tab-image" class="tab-content">
+            <div class="card">
+                <h2>Конвертер Изображений</h2>
+                <div class="dropzone" onclick="document.getElementById('imageInput').click()">
+                    <p id="imageFileName">🖼️ Нажмите или перетащите изображение (PNG, JPG, WEBP) сюда</p>
+                    <input type="file" id="imageInput" accept="image/*" style="display:none" onchange="handleFileSelect('image')">
+                </div>
+
+                <div class="form-group">
+                    <label>Формат назначения:</label>
+                    <select id="imageFormatSelect">
+                        <option value="image/jpeg">JPEG (.jpg)</option>
+                        <option value="image/png">PNG (.png)</option>
+                        <option value="image/webp">WEBP (.webp)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Качество сжатия: <span id="qualityVal">90</span>%</label>
+                    <input type="range" id="qualityRange" min="10" max="100" value="90" oninput="document.getElementById('qualityVal').textContent = this.value">
+                </div>
+
+                <button class="btn-action" onclick="convertImage()">🚀 Конвертировать Изображение</button>
+
+                <div id="imageResult" class="result-box">
+                    <h3>✅ Изображение успешно сконвертировано!</h3>
+                    <br>
+                    <img id="imagePreview" style="max-width: 300px; border-radius: 8px; margin-bottom: 10px;">
+                    <br>
+                    <a id="imageDownloadBtn" href="#" download="" class="btn-download">💾 Скачать Готовое Изображение</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: UNITS CONVERTER -->
+        <div id="tab-units" class="tab-content">
+            <div class="card">
+                <h2>Конвертер Единиц Измерения Информации</h2>
+                <div class="form-group">
+                    <label>Значение:</label>
+                    <input type="number" id="unitValue" value="1024" oninput="calcUnits()">
+                </div>
+
+                <div style="display: flex; gap: 16px; margin-top: 16px;">
+                    <div style="flex:1;">
+                        <label>Из:</label>
+                        <select id="unitFrom" onchange="calcUnits()">
+                            <option value="1">Байты (B)</option>
+                            <option value="1024">Килобайты (KB)</option>
+                            <option value="1048576" selected>Мегабайты (MB)</option>
+                            <option value="1073741824">Гигабайты (GB)</option>
+                            <option value="1099511627776">Терабайты (TB)</option>
+                        </select>
+                    </div>
+                    <div style="flex:1;">
+                        <label>В:</label>
+                        <select id="unitTo" onchange="calcUnits()">
+                            <option value="1">Байты (B)</option>
+                            <option value="1024">Килобайты (KB)</option>
+                            <option value="1048576">Мегабайты (MB)</option>
+                            <option value="1073741824" selected>Гигабайты (GB)</option>
+                            <option value="1099511627776">Терабайты (TB)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="unitResult" style="background:#e0f2fe; color:#0369a1; padding:20px; border-radius:12px; margin-top:20px; text-align:center;">
+                    <h3 style="font-size:1rem; margin-bottom:6px;">Результат:</h3>
+                    <div id="unitResultVal" style="font-size:1.8rem; font-weight:800;">1.0000 GB</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Anton Korshunov. AKVIO Web Converter.</p>
+    </footer>
+
+    <script>
+        function switchTab(name) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + name).classList.add('active');
+        }
+
+        function handleFileSelect(type) {
+            if (type === 'video') {
+                const file = document.getElementById('videoInput').files[0];
+                if (file) {
+                    document.getElementById('videoFileName').textContent = '📄 Выбран файл: ' + file.name + ' (' + (file.size / (1024*1024)).toFixed(2) + ' MB)';
+                }
+            } else if (type === 'image') {
+                const file = document.getElementById('imageInput').files[0];
+                if (file) {
+                    document.getElementById('imageFileName').textContent = '🖼️ Выбрано: ' + file.name + ' (' + (file.size / 1024).toFixed(2) + ' KB)';
+                }
+            }
+        }
+
+        async function convertMedia() {
+            const file = document.getElementById('videoInput').files[0];
+            if (!file) {
+                alert('Пожалуйста, выберите видеофайл MP4.');
+                return;
+            }
+
+            const progressBar = document.getElementById('mediaProgress');
+            const progressFill = document.getElementById('mediaProgressFill');
+            const resultBox = document.getElementById('mediaResult');
+            const format = document.getElementById('audioFormatSelect').value;
+
+            progressBar.style.display = 'block';
+            resultBox.style.display = 'none';
+            progressFill.style.width = '20%';
+
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                progressFill.style.width = '40%';
+                
+                const arrayBuffer = await file.arrayBuffer();
+                progressFill.style.width = '60%';
+
+                const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+                progressFill.style.width = '80%';
+
+                // Encode WAV
+                const wavBlob = audioBufferToWav(audioBuffer);
+                const url = URL.createObjectURL(wavBlob);
+
+                progressFill.style.width = '100%';
+
+                const ext = format === 'mp3' ? 'mp3' : 'wav';
+                const outputName = file.name.replace(/\.[^/.]+$/, "") + "_converted." + ext;
+
+                document.getElementById('mediaResultText').textContent = 'Файл: ' + outputName + ' | Размер: ' + (wavBlob.size / (1024*1024)).toFixed(2) + ' MB';
+                const dlBtn = document.getElementById('mediaDownloadBtn');
+                dlBtn.href = url;
+                dlBtn.download = outputName;
+
+                resultBox.style.display = 'block';
+            } catch (e) {
+                alert('Не удалось извлечь звук из этого видеофайла. Попробуйте другой MP4 файл.');
+            }
+        }
+
+        function audioBufferToWav(buffer) {
+            let numOfChan = buffer.numberOfChannels,
+                length = buffer.length * numOfChan * 2 + 44,
+                out = new DataView(new ArrayBuffer(length)),
+                channels = [], i, sample,
+                offset = 0,
+                pos = 0;
+
+            function setUint16(data) {
+                out.setUint16(pos, data, true);
+                pos += 2;
+            }
+            function setUint32(data) {
+                out.setUint32(pos, data, true);
+                pos += 4;
+            }
+
+            setUint32(0x46464952); // "RIFF"
+            setUint32(length - 8);
+            setUint32(0x45564157); // "WAVE"
+            setUint32(0x20746d66); // "fmt "
+            setUint32(16); // length = 16
+            setUint16(1); // PCM (uncompressed)
+            setUint16(numOfChan);
+            setUint32(buffer.sampleRate);
+            setUint32(buffer.sampleRate * 2 * numOfChan); // avg. bytes/sec
+            setUint16(numOfChan * 2); // block-align
+            setUint16(16); // 16-bit
+            setUint32(0x61746164); // "data"
+            setUint32(length - pos - 4);
+
+            for(i = 0; i < buffer.numberOfChannels; i++)
+                channels.push(buffer.getChannelData(i));
+
+            while(offset < buffer.length) {
+                for(i = 0; i < numOfChan; i++) {
+                    sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                    sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
+                    out.setInt16(pos, sample, true);
+                    pos += 2;
+                }
+                offset++;
+            }
+
+            return new Blob([out], {type: "audio/wav"});
+        }
+
+        function convertImage() {
+            const file = document.getElementById('imageInput').files[0];
+            if (!file) {
+                alert('Пожалуйста, выберите изображение.');
+                return;
+            }
+
+            const mime = document.getElementById('imageFormatSelect').value;
+            const quality = parseFloat(document.getElementById('qualityRange').value) / 100;
+            const extMap = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp'};
+            const ext = extMap[mime] || 'jpg';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    if (mime === 'image/jpeg') {
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob(function(blob) {
+                        const url = URL.createObjectURL(blob);
+                        const outputName = file.name.replace(/\.[^/.]+$/, "") + "_AKVIO." + ext;
+
+                        document.getElementById('imagePreview').src = url;
+                        const dlBtn = document.getElementById('imageDownloadBtn');
+                        dlBtn.href = url;
+                        dlBtn.download = outputName;
+
+                        document.getElementById('imageResult').style.display = 'block';
+                    }, mime, quality);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function calcUnits() {
+            const val = parseFloat(document.getElementById('unitValue').value) || 0;
+            const from = parseFloat(document.getElementById('unitFrom').value);
+            const to = parseFloat(document.getElementById('unitTo').value);
+            const res = (val * from) / to;
+            const unitNames = {1: 'B', 1024: 'KB', 1048576: 'MB', 1073741824: 'GB', 1099511627776: 'TB'};
+            document.getElementById('unitResultVal').textContent = res.toFixed(4) + ' ' + (unitNames[to] || '');
+        }
+
+        calcUnits();
+    </script>
+</body>
+</html>
