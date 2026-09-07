@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKVIO Converter - Web Version</title>
+    <title>AKVIO Converter - Web Version v1.101</title>
     <link rel="icon" type="image/png" href="akvio_logo.png">
     <style>
         :root {
@@ -237,6 +237,17 @@
             font-size: 0.9rem;
             border-top: 1px solid var(--card-border);
         }
+
+        .version-tag {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            background: rgba(2, 132, 199, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
     </style>
 </head>
 <body>
@@ -256,7 +267,6 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('media')">🎵 Видео ➔ Аудио (MP4 в MP3/WAV)</button>
             <button class="tab-btn" onclick="switchTab('image')">🖼️ Изображения (PNG/JPG/WEBP)</button>
-            <button class="tab-btn" onclick="switchTab('units')">📊 Конвертер Единиц Памяти</button>
         </div>
 
         <!-- TAB 1: MEDIA CONVERTER -->
@@ -324,49 +334,11 @@
                 </div>
             </div>
         </div>
-
-        <!-- TAB 3: UNITS CONVERTER -->
-        <div id="tab-units" class="tab-content">
-            <div class="card">
-                <h2>Конвертер Единиц Измерения Информации</h2>
-                <div class="form-group">
-                    <label>Значение:</label>
-                    <input type="number" id="unitValue" value="1024" oninput="calcUnits()">
-                </div>
-
-                <div style="display: flex; gap: 16px; margin-top: 16px;">
-                    <div style="flex:1;">
-                        <label>Из:</label>
-                        <select id="unitFrom" onchange="calcUnits()">
-                            <option value="1">Байты (B)</option>
-                            <option value="1024">Килобайты (KB)</option>
-                            <option value="1048576" selected>Мегабайты (MB)</option>
-                            <option value="1073741824">Гигабайты (GB)</option>
-                            <option value="1099511627776">Терабайты (TB)</option>
-                        </select>
-                    </div>
-                    <div style="flex:1;">
-                        <label>В:</label>
-                        <select id="unitTo" onchange="calcUnits()">
-                            <option value="1">Байты (B)</option>
-                            <option value="1024">Килобайты (KB)</option>
-                            <option value="1048576">Мегабайты (MB)</option>
-                            <option value="1073741824" selected>Гигабайты (GB)</option>
-                            <option value="1099511627776">Терабайты (TB)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="unitResult" style="background:#e0f2fe; color:#0369a1; padding:20px; border-radius:12px; margin-top:20px; text-align:center;">
-                    <h3 style="font-size:1rem; margin-bottom:6px;">Результат:</h3>
-                    <div id="unitResultVal" style="font-size:1.8rem; font-weight:800;">1.0000 GB</div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <footer>
         <p>&copy; 2026 Anton Korshunov. AKVIO Web Converter.</p>
+        <div class="version-tag">v1.101</div>
     </footer>
 
     <script>
@@ -527,17 +499,6 @@
             };
             reader.readAsDataURL(file);
         }
-
-        function calcUnits() {
-            const val = parseFloat(document.getElementById('unitValue').value) || 0;
-            const from = parseFloat(document.getElementById('unitFrom').value);
-            const to = parseFloat(document.getElementById('unitTo').value);
-            const res = (val * from) / to;
-            const unitNames = {1: 'B', 1024: 'KB', 1048576: 'MB', 1073741824: 'GB', 1099511627776: 'TB'};
-            document.getElementById('unitResultVal').textContent = res.toFixed(4) + ' ' + (unitNames[to] || '');
-        }
-
-        calcUnits();
     </script>
 </body>
 </html>
