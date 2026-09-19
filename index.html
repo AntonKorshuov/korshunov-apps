@@ -41,7 +41,7 @@
         /* Header Navigation */
         header {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             padding: 20px;
             display: flex;
             justify-content: space-between;
@@ -111,25 +111,10 @@
             border-color: var(--accent-blue);
         }
 
-        @media (max-width: 640px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            .header-brand h1 {
-                white-space: normal;
-                font-size: 1.15rem;
-            }
-            .controls-group {
-                align-self: flex-end;
-            }
-        }
-
-        /* Main Content Grid */
+        /* Main Content List */
         main {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             padding: 30px 20px 20px 20px;
             flex: 1;
         }
@@ -149,90 +134,83 @@
             object-fit: contain;
         }
 
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
+        .apps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        /* App Card Style */
-        .app-card {
+        /* App Row Table Structure */
+        .app-row {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px 24px;
             box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 140px 220px 1fr 220px;
+            align-items: center;
+            gap: 20px;
             transition: transform 0.2s, border-color 0.2s;
         }
 
-        .app-card:hover {
-            transform: translateY(-4px);
+        .app-row:hover {
+            transform: translateY(-2px);
             border-color: var(--accent-blue);
         }
 
-        .app-icon-box {
-            width: 130px;
-            height: 80px;
+        /* Cell 1: Logo */
+        .cell-logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            width: 130px;
+            height: 80px;
         }
 
-        .app-icon-box img {
-            width: 100%;
-            height: 100%;
+        .cell-logo img {
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            display: block;
         }
 
-        .app-header {
+        /* Cell 2: Title & Badge */
+        .cell-title {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .app-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            object-fit: contain;
-            background: rgba(0,0,0,0.03);
-            padding: 6px;
-        }
-
-        .app-title-group h3 {
-            font-size: 1.25rem;
+        .cell-title h3 {
+            font-size: 1.2rem;
             font-weight: 700;
+            color: var(--text-main);
         }
 
         .app-badge {
             display: inline-block;
+            align-self: flex-start;
             font-size: 0.75rem;
             font-weight: 600;
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 12px;
             background: rgba(2, 132, 199, 0.1);
             color: var(--accent-blue);
-            margin-top: 4px;
         }
 
-        .app-desc {
+        /* Cell 3: Description */
+        .cell-desc {
             font-size: 0.95rem;
             color: var(--text-sub);
             line-height: 1.5;
-            margin-bottom: 24px;
         }
 
-        .btn-group {
+        /* Cell 4: Download Buttons */
+        .cell-buttons {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: auto;
+            justify-content: center;
         }
 
         .btn-primary {
@@ -240,7 +218,7 @@
             color: #ffffff;
             border: none;
             font-weight: 600;
-            padding: 12px;
+            padding: 10px 16px;
             text-align: center;
             text-decoration: none;
             border-radius: 10px;
@@ -248,6 +226,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-size: 0.9rem;
             transition: opacity 0.2s;
         }
 
@@ -255,31 +234,12 @@
             opacity: 0.9;
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--card-border);
-            font-weight: 600;
-            padding: 10px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0,0,0,0.03);
-        }
-
         .btn-yellow {
             background: #fff8d6;
             color: #8c6800;
             border: 1px solid #ffe380;
             font-weight: 600;
-            padding: 12px;
+            padding: 10px 16px;
             text-align: center;
             text-decoration: none;
             border-radius: 10px;
@@ -287,6 +247,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
         }
 
@@ -296,10 +257,27 @@
             border-color: #ffd666;
         }
 
-        /* Footer */
+        /* Mobile Layout Adaptation */
+        @media (max-width: 900px) {
+            .app-row {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                text-align: center;
+            }
+            .cell-logo {
+                margin: 0 auto;
+            }
+            .cell-title {
+                align-items: center;
+            }
+            .app-badge {
+                align-self: center;
+            }
+        }
+
         footer {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1200px;
             padding: 40px 20px;
             text-align: center;
             border-top: 1px solid var(--card-border);
@@ -321,7 +299,6 @@
         </div>
 
         <div class="controls-group">
-            <!-- Language Select -->
             <select id="lang-select" onchange="setLang(this.value)">
                 <option value="de">DE</option>
                 <option value="en" selected>EN</option>
@@ -334,103 +311,83 @@
     <main>
         <h2 class="section-title"><img src="apps_icon.png" class="section-icon" alt="Apps Icon"> <span data-i18n="apps_title">Applications</span></h2>
 
-        <div class="apps-grid">
+        <div class="apps-list">
             <!-- APP 1: NAVI -->
-            <div class="app-card">
-                <div class="app-card-content">
-                    <div class="app-header">
-                        <div class="app-icon-box">
-                            <img src="logo_transparent.png" alt="AKWAY Icon">
-                        </div>
-                        <div class="app-title-group">
-                            <h3>AKWAY Navigation</h3>
-                            <span class="app-badge">v2.142 • Active</span>
-                        </div>
-                    </div>
-                    <p class="app-desc" data-i18n="navi_desc">
-                        Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и удобный дизайн.
-                    </p>
+            <div class="app-row">
+                <div class="cell-logo">
+                    <img src="logo_transparent.png" alt="AKWAY Icon">
                 </div>
-
-                <div class="btn-group">
-                    <a href="https://klockenhoff-navi-server.onrender.com/" target="_blank" class="btn-yellow" style="background:#fff8d6; color:#8c6800; border:1px solid #ffe380; font-weight:600; padding:12px; text-align:center; text-decoration:none; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <div class="cell-title">
+                    <h3>AKWAY Navigation</h3>
+                    <span class="app-badge">v2.142 • Active</span>
+                </div>
+                <div class="cell-desc" data-i18n="navi_desc">
+                    Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и удобный дизайн.
+                </div>
+                <div class="cell-buttons">
+                    <a href="https://klockenhoff-navi-server.onrender.com/" target="_blank" class="btn-yellow">
                         🌐 <span data-i18n="open_web">Открыть веб-версию</span>
                     </a>
-                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKWAY_v2.142.apk" download="AKWAY_v2.142.apk" class="btn-primary">
+                    <a href="AKWAY_v2.142.apk" download="AKWAY_v2.142.apk" class="btn-primary">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                 </div>
             </div>
 
             <!-- APP 2: AKUSTIK -->
-            <div class="app-card">
-                <div class="app-card-content">
-                    <div class="app-header">
-                        <div class="app-icon-box">
-                            <img src="akustic_logo.png" alt="AKUSTIK Icon">
-                        </div>
-                        <div class="app-title-group">
-                            <h3>AKUSTIK Music</h3>
-                            <span class="app-badge">v1.169 • Android & Auto</span>
-                        </div>
-                    </div>
-                    <p class="app-desc" data-i18n="ustik_desc">
-                        Современный оффлайн музыкальный плеер в строгом черно-белом дизайне. Поддерживает интерактивную полосу прогресса, таймеры времени, проигрыватель, редактирование метаданных и Android Auto.
-                    </p>
+            <div class="app-row">
+                <div class="cell-logo">
+                    <img src="akustic_logo.png" alt="AKUSTIK Icon">
                 </div>
-
-                <div class="btn-group">
-                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKUSTIK_v1.169.apk" download="AKUSTIK_v1.169.apk" class="btn-primary">
+                <div class="cell-title">
+                    <h3>AKUSTIK Music</h3>
+                    <span class="app-badge">v1.169 • Android & Auto</span>
+                </div>
+                <div class="cell-desc" data-i18n="ustik_desc">
+                    Современный оффлайн музыкальный плеер в строгом черно-белом дизайне. Поддерживает интерактивную полосу прогресса, таймеры времени, проигрыватель, редактирование метаданных и Android Auto.
+                </div>
+                <div class="cell-buttons">
+                    <a href="AKUSTIK_v1.169.apk" download="AKUSTIK_v1.169.apk" class="btn-primary">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                 </div>
             </div>
 
             <!-- APP 3: AKVIO -->
-            <div class="app-card">
-                <div class="app-card-content">
-                    <div class="app-header">
-                        <div class="app-icon-box">
-                            <img src="akvio_logo.png" alt="AKVIO Icon">
-                        </div>
-                        <div class="app-title-group">
-                            <h3>AKVIO</h3>
-                            <span class="app-badge">v1.117 • Active</span>
-                        </div>
-                    </div>
-                    <p class="app-desc" data-i18n="akvio_desc">
-                        Универсальный конвертер медиа и графических файлов. Включает извлечение M4A/AAC из MP4, строгие кнопки без иконок, сканер расширений (.mp3 ➔ .m4a) и конвертер изображений.
-                    </p>
+            <div class="app-row">
+                <div class="cell-logo">
+                    <img src="akvio_logo.png" alt="AKVIO Icon">
                 </div>
-
-                <div class="btn-group">
-                    <a href="akvio_web.html" target="_blank" class="btn-yellow" style="background:#fff8d6; color:#8c6800; border:1px solid #ffe380; font-weight:600; padding:12px; text-align:center; text-decoration:none; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <div class="cell-title">
+                    <h3>AKVIO</h3>
+                    <span class="app-badge">v1.117 • Active</span>
+                </div>
+                <div class="cell-desc" data-i18n="akvio_desc">
+                    Универсальный конвертер медиа и графических файлов. Включает извлечение M4A/AAC из MP4, строгие кнопки без иконок, сканер расширений (.mp3 ➔ .m4a) и конвертер изображений.
+                </div>
+                <div class="cell-buttons">
+                    <a href="akvio_web.html" target="_blank" class="btn-yellow">
                         🌐 <span data-i18n="open_web">Открыть веб-версию</span>
                     </a>
-                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKVIO_v1.117.apk" download="AKVIO_v1.117.apk" class="btn-primary">
+                    <a href="AKVIO_v1.117.apk" download="AKVIO_v1.117.apk" class="btn-primary">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                 </div>
             </div>
 
             <!-- APP 4: AKCENT -->
-            <div class="app-card">
-                <div class="app-card-content">
-                    <div class="app-header">
-                        <div class="app-icon-box">
-                            <img src="akcent_logo.png" alt="AKCENT Icon">
-                        </div>
-                        <div class="app-title-group">
-                            <h3>AKCENT</h3>
-                            <span class="app-badge">v1.101 • Active</span>
-                        </div>
-                    </div>
-                    <p class="app-desc" data-i18n="akcent_desc">
-                        Мобильное приложение AKCENT для оптимизации задач и акцентирования внимания на ключевых целях.
-                    </p>
+            <div class="app-row">
+                <div class="cell-logo">
+                    <img src="akcent_logo.png" alt="AKCENT Icon">
                 </div>
-
-                <div class="btn-group">
+                <div class="cell-title">
+                    <h3>AKCENT</h3>
+                    <span class="app-badge">v1.101 • Active</span>
+                </div>
+                <div class="cell-desc" data-i18n="akcent_desc">
+                    Мобильное приложение AKCENT для оптимизации задач и акцентирования внимания на ключевых целях.
+                </div>
+                <div class="cell-buttons">
                     <a href="AKCENT_v1.101.apk" download="AKCENT_v1.101.apk" class="btn-primary">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
@@ -514,9 +471,7 @@
             });
         }
 
-        // Initialize English by default on load
         setLang('en');
     </script>
 </body>
 </html>
-
