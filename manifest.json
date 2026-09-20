@@ -1,23 +1,17 @@
 {
-  "short_name": "AKWAY",
-  "name": "AKWAY Navigation",
+  "name": "AKVIO Converter",
+  "short_name": "AKVIO",
+  "description": "Универсальный конвертер медиа и графических файлов",
+  "start_url": "./akvio_web.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0284c7",
   "icons": [
     {
-      "src": "logo_transparent.png",
-      "type": "image/png",
+      "src": "akvio_logo_black.png",
       "sizes": "192x192 512x512",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo.png",
       "type": "image/png",
-      "sizes": "512x512",
       "purpose": "any maskable"
     }
-  ],
-  "start_url": "./",
-  "background_color": "#1e88e5",
-  "theme_color": "#1e88e5",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }
