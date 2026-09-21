@@ -181,13 +181,14 @@
         }
 
         .app-icon {
-    width: 68px;
-    height: 68px;
-    border-radius: 14px;
-    object-fit: contain;
-    background: transparent;
-    padding: 0;
-}
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            object-fit: contain;
+            background: transparent;
+            padding: 0;
+            flex-shrink: 0;
+        }
 
         .app-title-group h3 {
             font-size: 1.25rem;
@@ -317,12 +318,34 @@
     <main>
         <h2 class="section-title"><img src="apps_icon.png" class="section-icon" alt="Apps Icon"> <span data-i18n="apps_title">Applications</span></h2>
 
-        <div class="apps-grid">
-            <!-- APP 1: NAVI -->
+                <div class="apps-grid">
+            <!-- APP 0: AKCENT -->
             <div class="app-card">
                 <div>
                     <div class="app-header">
-                        <img src="logo_transparent.png?v=200" class="app-icon" alt="AKWAY Icon" style="width: auto; height: 68px; max-width: 100px; object-fit: contain; padding: 0; background: transparent; border-radius: 0;">
+                        <img src="akcent_logo.png" class="app-icon" alt="AKCENT Icon">
+                        <div class="app-title-group">
+                            <h3>AKCENT Reminders</h3>
+                            <span class="app-badge">v1.113 • Active</span>
+                        </div>
+                    </div>
+                    <p class="app-desc" data-i18n="akcent_desc">
+                        Удобный менеджер задач и напоминаний. Поддерживает создание папок, точные сигналы и выбор системных или собственных рингтонов.
+                    </p>
+                </div>
+
+                <div class="btn-group">
+                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKCENT_v1.113.apk" download="AKCENT_v1.113.apk" class="btn-primary">
+                        📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- APP 1: AKWAY -->
+            <div class="app-card">
+                <div>
+                    <div class="app-header">
+                        <img src="logo_transparent.png?v=200" class="app-icon" alt="AKWAY Icon">
                         <div class="app-title-group">
                             <h3>AKWAY Navigation</h3>
                             <span class="app-badge">v2.143 • Active</span>
@@ -347,10 +370,10 @@
             <div class="app-card">
                 <div>
                     <div class="app-header">
-                        <img src="akustic_logo.png" class="app-icon" alt="AKUSTIC Icon" style="width: auto; height: 56px; max-width: 90px; object-fit: contain;">
+                        <img src="akustic_logo.png" class="app-icon" alt="AKUSTIC Icon">
                         <div class="app-title-group">
-                            <h3>AKUSTIC</h3>
-                            <span class="app-badge">v1.137 • Android & Auto</span>
+                            <h3>AKUSTIC Music</h3>
+                            <span class="app-badge">v1.170 • Android & Auto</span>
                         </div>
                     </div>
                     <p class="app-desc" data-i18n="ustik_desc">
@@ -359,7 +382,7 @@
                 </div>
 
                 <div class="btn-group">
-                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKUSTIC_v1.137.apk" class="btn-primary" download>
+                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKUSTIK_v1.170.apk" download="AKUSTIK_v1.170.apk" class="btn-primary">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                 </div>
@@ -369,10 +392,10 @@
             <div class="app-card">
                 <div>
                     <div class="app-header">
-                        <img src="akvio_logo.png" class="app-icon" alt="AKVIO Icon" style="width: auto; height: 56px; max-width: 90px; object-fit: contain;">
+                        <img src="akvio_logo.png" class="app-icon" alt="AKVIO Icon">
                         <div class="app-title-group">
-                            <h3>AKVIO</h3>
-                            <span class="app-badge">v1.107 • Active</span>
+                            <h3>AKVIO Konvert</h3>
+                            <span class="app-badge">v1.119 • Active</span>
                         </div>
                     </div>
                     <p class="app-desc" data-i18n="akvio_desc">
@@ -384,7 +407,7 @@
                     <a href="akvio_web.html" target="_blank" class="btn-yellow" style="background:#fff8d6; color:#8c6800; border:1px solid #ffe380; font-weight:600; padding:12px; text-align:center; text-decoration:none; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
                         🌐 <span data-i18n="open_web">Открыть веб-версию</span>
                     </a>
-                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKVIO_v1.107.apk" download="AKVIO_v1.107.apk" class="btn-primary">
+                    <a href="https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/AKVIO_v1.119.apk" download="AKVIO_v1.119.apk" class="btn-primary">
                         📱 <span data-i18n="download_apk">Скачать APK (Android)</span>
                     </a>
                 </div>
@@ -401,6 +424,7 @@
             ru: {
                 hero_title: 'Разработка программного обеспечения',
                 apps_title: 'Приложения',
+                akcent_desc: 'Удобный менеджер задач и напоминаний. Поддерживает создание папок, точные сигналы и выбор системных или собственных рингтонов.',
                 navi_desc: 'Умная логистическая навигационная система с алгоритмом 2-Opt оптимизации закольцованных маршрутов. Поддерживает импорт клиентов из Excel, многоязычность и удобный дизайн.',
                 ustik_desc: 'Современный оффлайн музыкальный плеер в строгом черно-белом дизайне. Поддерживает гибкое управление плейлистами, умную фильтрацию медиатеки и интеграцию с Android Auto.',
                 akvio_desc: 'Универсальный конвертер медиа и графических файлов. Позволяет мгновенно извлекать MP3/WAV из MP4 видео и конвертировать форматы изображений (PNG, JPG, WEBP).',
@@ -414,6 +438,8 @@
             de: {
                 hero_title: 'Softwareentwicklung',
                 apps_title: 'Anwendungen',
+                akcent_desc: 'Удобный менеджер задач и напоминаний. Поддерживает создание папок, точные сигналы и выбор системных или собственных рингтонов.',
+                akcent_desc: 'Praktischer Aufgaben- und Erinnerungsmanager. Unterstützt Ordnererstellung, präzise Signale und benutzerdefinierte Klingeltöne.',
                 navi_desc: 'Intelligentes Logistik-Navigationssystem mit 2-Opt-Algorithmus zur Routenoptimierung. Unterstützt Excel-Import, Mehrsprachigkeit und modernes Design.',
                 ustik_desc: 'Moderner Offline-Musikplayer im eleganten Schwarz-Weiß-Design. Bietet flexible Playlist-Verwaltung, intelligente Medienbibliothek-Filterung und vollständige Android Auto-Integration.',
                 akvio_desc: 'Universeller Medien- und Bildkonverter. Ermöglicht die MP4-zu-MP3/WAV-Audioextraktion und Bildkonvertierung (PNG, JPG, WEBP).',
@@ -427,6 +453,7 @@
             en: {
                 hero_title: 'Software Development',
                 apps_title: 'Applications',
+                akcent_desc: 'Удобный менеджер задач и напоминаний. Поддерживает создание папок, точные сигналы и выбор системных или собственных рингтонов.',
                 navi_desc: 'Smart logistics navigation system with 2-Opt route optimization algorithm. Supports Excel import, multi-language support, and sleek design.',
                 ustik_desc: 'Modern offline music player with a sleek monochrome dark design. Features flexible playlist management, smart media library filtering, and full Android Auto integration.',
                 akvio_desc: 'Universal media and image converter. Enables instant MP4 to MP3/WAV audio extraction and image format conversion (PNG, JPG, WEBP).',
@@ -440,6 +467,7 @@
             pl: {
                 hero_title: 'Tworzenie Oprogramowania',
                 apps_title: 'Aplikacje',
+                akcent_desc: 'Удобный менеджер задач и напоминаний. Поддерживает создание папок, точные сигналы и выбор системных или собственных рингтонов.',
                 navi_desc: 'Inteligentny system nawigacji logistycznej z algorytmem optymalizacji tras 2-Opt. Obsługuje import z pliku Excel, wielojęzyczność i elegancki wygląd.',
                 ustik_desc: 'Nowoczesny odtwarzacz muzyczny offline w eleganckim czarno-białym stylu. Oferuje elastyczne zarządzanie listami odtwarzania, inteligentne filtrowanie biblioteki oraz integrację z Android Auto.',
                 akvio_desc: 'Uniwersalny konwerter mediów i obrazów. Umożliwia wyciąganie audio MP3/WAV z filmów MP4 oraz konwersję obrazów (PNG, JPG, WEBP).',
