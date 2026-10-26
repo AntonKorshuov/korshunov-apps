@@ -11,6 +11,7 @@ dist-electron/
 .env
 .env.local
 .env.*.local
+*.secret
 
 # Logs
 npm-debug.log*

@@ -48,7 +48,8 @@ export const App: React.FC = () => {
   const [isClubPickerOpen, setIsClubPickerOpen] = useState(false);
   const [soundOn, setSoundOn] = useState(sound.isEnabled());
   const [selectedCategory, setSelectedCategory] = useState<string>('Alle');
-  const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
+  const [remoteUpdate, setRemoteUpdate] = useState<{ version: string; description: string; downloadUrl: string } | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   // Load progress from disk file (Electron AppData) on startup
   useEffect(() => {
@@ -61,8 +62,11 @@ export const App: React.FC = () => {
 
       // Listen for auto-update readiness
       const unsubscribe = window.electronAPI.onUpdateStatus((info) => {
-        if (info.status === 'downloaded') {
-          setUpdateAvailable(true);
+        if (info.status === 'available' && info.details) {
+          const det = info.details as { version: string; description: string; downloadUrl: string };
+          setRemoteUpdate(det);
+        } else if (info.status === 'downloading') {
+          setIsUpdating(true);
         }
       });
       return () => unsubscribe();
@@ -128,17 +132,25 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-['Nunito',sans-serif]">
       {/* Auto-Update Banner */}
-      {updateAvailable && (
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 text-xs font-bold flex items-center justify-between">
+      {remoteUpdate && (
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2.5 text-xs font-bold flex items-center justify-between shadow-lg">
           <div className="flex items-center gap-2">
-            <RefreshCw size={14} className="animate-spin" />
-            <span>🎉 Ein neues Mathe-Update wurde heruntergeladen und ist bereit!</span>
+            <RefreshCw size={15} className={isUpdating ? 'animate-spin' : ''} />
+            <span>
+              🎉 Neues Mathe-Update (v{remoteUpdate.version}): {remoteUpdate.description}
+            </span>
           </div>
           <button
-            onClick={() => window.electronAPI?.installUpdate()}
-            className="bg-white text-indigo-700 px-3 py-1 rounded-lg text-xs font-black hover:bg-slate-100 transition shadow"
+            disabled={isUpdating}
+            onClick={() => {
+              if (window.electronAPI) {
+                setIsUpdating(true);
+                window.electronAPI.applyRemoteUpdate(remoteUpdate.downloadUrl);
+              }
+            }}
+            className="bg-white text-indigo-700 px-3.5 py-1 rounded-lg text-xs font-black hover:bg-slate-100 transition shadow disabled:opacity-60"
           >
-            Jetzt neu starten & aktualisieren
+            {isUpdating ? 'Wird aktualisiert...' : 'Jetzt aktualisieren ➔'}
           </button>
         </div>
       )}

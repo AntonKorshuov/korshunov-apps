@@ -1,14 +1,7 @@
 const { app, BrowserWindow, shell, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
-
-let autoUpdater = null;
-try {
-  const updaterModule = require('electron-updater');
-  autoUpdater = updaterModule.autoUpdater;
-} catch (e) {
-  console.log('electron-updater not loaded:', e.message);
-}
+const { RemoteUpdater } = require('./remoteUpdater.cjs');
 
 // Disable shader disk cache to avoid Windows permission/encoding issues
 app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
@@ -42,49 +35,12 @@ if (!gotTheLock) {
     }
   });
 
+  const remoteUpdater = new RemoteUpdater();
+
   function sendUpdateStatus(status, details = null) {
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('update-status', { status, details });
     }
-  }
-
-  // Setup auto-updater settings
-  if (autoUpdater) {
-    autoUpdater.autoDownload = true;
-    autoUpdater.autoInstallOnAppQuit = true;
-    try {
-      autoUpdater.setFeedURL({
-        provider: 'github',
-        owner: 'AntonKorshuov',
-        repo: 'korshunov-apps'
-      });
-    } catch (e) {
-      console.log('FeedURL setup note:', e.message);
-    }
-
-    autoUpdater.on('checking-for-update', () => {
-      sendUpdateStatus('checking');
-    });
-
-    autoUpdater.on('update-available', (info) => {
-      sendUpdateStatus('available', info);
-    });
-
-    autoUpdater.on('update-not-available', (info) => {
-      sendUpdateStatus('not-available', info);
-    });
-
-    autoUpdater.on('error', (err) => {
-      sendUpdateStatus('error', err == null ? 'unknown' : (err.message || String(err)));
-    });
-
-    autoUpdater.on('download-progress', (progressObj) => {
-      sendUpdateStatus('downloading', progressObj);
-    });
-
-    autoUpdater.on('update-downloaded', (info) => {
-      sendUpdateStatus('downloaded', info);
-    });
   }
 
   function createWindow() {
@@ -107,18 +63,17 @@ if (!gotTheLock) {
     mainWindow.once('ready-to-show', () => {
       mainWindow.show();
 
-      // Check for updates after 5 seconds if updater is present
-      if (autoUpdater) {
-        setTimeout(() => {
-          try {
-            autoUpdater.checkForUpdatesAndNotify().catch((e) => {
-              console.log('Update check ignored (offline or dev mode):', e.message);
-            });
-          } catch (e) {
-            console.log('Update check failed:', e);
+      // Check for updates after 3 seconds from GitHub
+      setTimeout(async () => {
+        try {
+          const res = await remoteUpdater.checkForUpdates();
+          if (res && res.hasUpdate) {
+            sendUpdateStatus('available', res);
           }
-        }, 5000);
-      }
+        } catch (e) {
+          console.log('Initial update check error:', e.message);
+        }
+      }, 3000);
     });
 
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
@@ -142,13 +97,10 @@ if (!gotTheLock) {
   ipcMain.handle('save-progress', async (event, data) => {
     try {
       const jsonStr = JSON.stringify(data, null, 2);
-      // Write backup first
       if (fs.existsSync(progressFilePath)) {
         try {
           fs.copyFileSync(progressFilePath, progressBackupPath);
-        } catch {
-          // ignore
-        }
+        } catch {}
       }
       fs.writeFileSync(progressFilePath, jsonStr, 'utf-8');
       return { success: true };
@@ -174,21 +126,28 @@ if (!gotTheLock) {
     return null;
   });
 
+  // Remote GitHub Update Handlers
   ipcMain.handle('check-for-updates', async () => {
-    if (!autoUpdater) {
-      return { success: false, error: 'Updater not available in this mode' };
-    }
     try {
-      const result = await autoUpdater.checkForUpdates();
-      return { success: true, updateInfo: result?.updateInfo };
+      const result = await remoteUpdater.checkForUpdates();
+      return { success: true, ...result };
     } catch (err) {
       return { success: false, error: err.message };
     }
   });
 
-  ipcMain.handle('install-update', () => {
-    if (autoUpdater) {
-      autoUpdater.quitAndInstall();
+  ipcMain.handle('apply-remote-update', async (event, downloadUrl) => {
+    try {
+      sendUpdateStatus('downloading');
+      await remoteUpdater.downloadAndApplyUpdate(downloadUrl);
+      sendUpdateStatus('downloaded');
+      // Relaunch app with updated code
+      app.relaunch();
+      app.exit(0);
+      return { success: true };
+    } catch (err) {
+      sendUpdateStatus('error', err.message);
+      return { success: false, error: err.message };
     }
   });
 

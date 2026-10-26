@@ -11,7 +11,8 @@ declare global {
       platform: string;
       saveProgress: (data: unknown) => Promise<{ success: boolean; error?: string }>;
       loadProgress: () => Promise<unknown>;
-      checkForUpdates: () => Promise<{ success: boolean; updateInfo?: unknown; error?: string }>;
+      checkForUpdates: () => Promise<{ success: boolean; hasUpdate?: boolean; version?: string; description?: string; downloadUrl?: string; error?: string }>;
+      applyRemoteUpdate: (url: string) => Promise<{ success: boolean; error?: string }>;
       installUpdate: () => void;
       getAppVersion: () => Promise<string>;
       onUpdateStatus: (callback: (status: { status: string; details?: unknown }) => void) => () => void;
@@ -98,12 +99,16 @@ export const ParentModal: React.FC<ParentModalProps> = ({
 
   const handleCheckUpdate = async () => {
     setIsCheckingUpdate(true);
-    setUpdateStatusText('Suche nach Updates...');
+    setUpdateStatusText('Suche nach Updates auf GitHub...');
     if (window.electronAPI) {
       const res = await window.electronAPI.checkForUpdates();
       setIsCheckingUpdate(false);
-      if (!res.success) {
-        setUpdateStatusText('Keine neue Version verfügbar oder Rechner ist offline.');
+      if (res.hasUpdate) {
+        setUpdateStatusText(`🎉 Neues Update gefunden: v${res.version}! (${res.description || ''})`);
+      } else if (res.error) {
+        setUpdateStatusText(`Fehler bei der Suche: ${res.error}`);
+      } else {
+        setUpdateStatusText('✓ Das Programm ist auf dem neuesten Stand!');
       }
     } else {
       setTimeout(() => {
