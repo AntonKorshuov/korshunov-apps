@@ -1,5 +1,6 @@
 {
-    "releaseDate":  "2026-10-26",
-    "description":  "Erste Version von Mathe-Champion 5",
-    "version":  "1.0.0"
+    "releaseDate":  "2026-10-26 22:33",
+    "description":  "Test-Update: Remote-Update-Pipeline eingerichtet",
+    "version":  "1.0.2",
+    "downloadUrl":  "https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/mathe-champion/update-bundle.zip"
 }
