@@ -1,6 +1,6 @@
 {
-    "releaseDate":  "2026-11-16 19:11",
-    "description":  "Automatische Aussprachebewertung, natuerliche Studio-Stimme und Sitzungsfortsetzung",
-    "version":  "1.0.10",
+    "releaseDate":  "2026-11-16 19:22",
+    "description":  "Verbesserte objektive Aussprachepruefung mit Kontrast-Analyse",
+    "version":  "1.0.11",
     "downloadUrl":  "https://raw.githubusercontent.com/AntonKorshuov/korshunov-apps/main/mathe-champion/update-bundle.zip"
 }
